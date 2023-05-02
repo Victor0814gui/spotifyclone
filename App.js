@@ -3,7 +3,6 @@ import {View, Text, StyleSheet} from 'react-native';
 import {Navbar} from './components/navbar';
 import {PlayerControls} from './components/player-controls';
 import {PlayListDetails} from './playlist-details';
-import {Search} from './search-screen';
 import AnimatedGradientExampleBody from './animated-gradient-example-body';
 
 export default function App() {
@@ -11,7 +10,7 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.content}>
         <Navbar />
-        <Search />
+        <PlayListDetails />
       </View>
       <PlayerControls />
     </View>
