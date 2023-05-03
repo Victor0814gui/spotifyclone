@@ -5,6 +5,8 @@ import {PlayerControls} from './components/player-controls';
 import {PlayListDetails} from './playlist-details';
 import AnimatedGradientExampleBody from './animated-gradient-example-body';
 
+import {Search} from './search-screen';
+
 export default function App() {
   return (
     <View style={styles.container}>
