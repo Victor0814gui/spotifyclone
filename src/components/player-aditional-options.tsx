@@ -1,11 +1,10 @@
 import React from 'react';
-import {View, Image, StyleSheet, useWindowDimensions} from 'react-native';
-import {Icon} from '../assets';
+import { View, Image, StyleSheet, useWindowDimensions } from 'react-native';
+import { Icon } from '../assets';
 
 export function PlayerAdictionalOptions() {
-  const {width} = useWindowDimensions();
   return (
-    <View style={[styles.container, {width: width / 3}]}>
+    <View style={[styles.container]}>
       <Icon style={styles.spacemente} name={require('../assets/mic.svg')} />
       <Icon style={styles.spacemente} name={require('../assets/queue.svg')} />
       <Icon style={styles.spacemente} name={require('../assets/device.svg')} />
@@ -23,7 +22,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    flex: 1,
+    width: "100%",
+    maxWidth: 300,
+    // backgroundColor: "red",
   },
   spacemente: {
     marginRight: 10,

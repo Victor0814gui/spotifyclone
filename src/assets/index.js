@@ -1,6 +1,6 @@
 import {Image, StyleSheet} from 'react-native';
 
-export function Icon({name, style}) {
+export function Icon({name = '', style = {}}) {
   return (
     <Image
       resizeMode="stretch"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,11 +7,12 @@ import {
   ScrollView,
   PlatformColor,
 } from 'react-native';
-import {Flyout} from 'react-native-windows';
 
 import LinearGradient from 'react-native-linear-gradient';
-import {MusicPlaylistItem} from './components/music-playlist-item';
-import {HeaderControlsListButtons} from './components/header-list-controls-buttons';
+import { MusicPlaylistItem } from './components/music-playlist-item';
+import { HeaderControlsListButtons } from './components/header-list-controls-buttons';
+import TrackPlayer, { STATE_PAUSED, } from "react-native-track-player";
+import { tracks } from './services/player';
 
 const playlist = new Array(22).fill({
   name: 'jotaaro',
@@ -21,22 +22,43 @@ const playlist = new Array(22).fill({
 });
 
 export function PlayListDetails() {
+  const [itemIsRendering, setItemIsRendering] = useState(false);
+
+  const handlerGetTrack = async (id: string) => {
+
+    await TrackPlayer.skip(id);
+    if (STATE_PAUSED) {
+      await TrackPlayer.play();
+    }
+  }
+
+  useEffect(() => {
+    console.log(new Date().getMilliseconds());
+
+  })
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+      setItemIsRendering(true)
+    }, 300)
+
+    return () => {
+      clearTimeout(timer);
+      setItemIsRendering(false);
+    }
+  }, [])
+
   return (
     <ScrollView>
-      <LinearGradient
-        colors={['#b62c33', '#121212']}
-        angle={180}
-        start={{x: 0, y: 0}}
-        end={{x: 0.1, y: 0.9}}
-        style={{
-          flex: 1,
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          top: 0,
-        }}
-      />
+      <View style={styles.gradientWrapper}>
+        <LinearGradient
+          colors={['#b62c33', '#121212']}
+          angle={180}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0.1, y: 0.9 }}
+          style={styles.gradientContainer}
+        />
+      </View>
       <View style={styles.container}>
         <View style={styles.playlistCotentDetails}>
           <Image
@@ -45,11 +67,11 @@ export function PlayListDetails() {
             }}
             style={styles.playlistThumbnail}
           />
-          <View
-            style={{paddingHorizontal: 21, justifyContent: 'space-between'}}>
+          {itemIsRendering && <View
+            style={{ paddingHorizontal: 21, justifyContent: 'space-between' }}>
             <Text style={styles.contentType}>Álbum</Text>
             <Text style={styles.playlistName}>Mezmeire</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image
                 source={{
                   uri: 'https://i.scdn.co/image/ab67616d0000b273c65f8d04502eeddbdd61fa71',
@@ -61,26 +83,29 @@ export function PlayListDetails() {
                   marginRight: 8,
                 }}
               />
-              <Text>System of A down</Text>
+              <Text style={styles.text}>System of A down</Text>
               <View style={styles.circularSeparator} />
-              <Text>2005</Text>
+              <Text style={styles.text}>2005</Text>
               <View style={styles.circularSeparator} />
-              <Text>11 musicas</Text>
+              <Text style={styles.text}>11 musicas</Text>
               <View style={styles.circularSeparator} />
-              <Text>36mins 11s</Text>
+              <Text style={styles.text}>36mins 11s</Text>
             </View>
-          </View>
+          </View>}
         </View>
         <View style={styles.content}>
           <View style={styles.contentBackgroundOpacity} />
           <HeaderControlsListButtons />
-          {playlist.map((e, index) => (
+          {itemIsRendering && tracks.map((e, index) => (
             <MusicPlaylistItem
-              name={e.name}
-              astist={e.astist}
-              reproductions={e.reproductions}
+              onPress={() => handlerGetTrack(e.id)}
+              name={e.title}
+              key={index}
+              astist={e.artist}
+              reproductions={"100"}
               index={index + 1}
-              time={e.time}
+              time={e.duration}
+              artwork={e.artwork}
             />
           ))}
         </View>
@@ -90,6 +115,18 @@ export function PlayListDetails() {
 }
 
 const styles = StyleSheet.create({
+  gradientWrapper: {
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 12,
+    top: 5,
+  },
+  gradientContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
   },
@@ -132,4 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginHorizontal: 4,
   },
+  text: {
+    fontWeight: "500",
+  }
 });

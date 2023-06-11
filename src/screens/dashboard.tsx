@@ -1,17 +1,15 @@
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 
-import {Navbar} from './components/navbar';
-import {PlayerControls} from './components/player-controls';
-import {PlayListDetails} from './playlist-details';
-import AnimatedGradientExampleBody from './animated-gradient-example-body';
+import { Navbar } from '../components/navbar';
+import { PlayerControls } from '../components/player-controls';
+import { PlayListDetails } from '../playlist-details';
 
-import {Search} from './search-screen';
 
-export default function App() {
+export function Dashboard() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Navbar />
         <PlayListDetails />
       </View>
       <PlayerControls />

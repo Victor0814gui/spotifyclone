@@ -6,6 +6,12 @@
 // Includes from react-native-linear-gradient
 #include <winrt/BVLinearGradient.h>
 
+// Includes from react-native-screens
+#include <winrt/RNScreens.h>
+
+// Includes from react-native-track-player
+#include <winrt/RNTrackPlayer.h>
+
 namespace winrt::Microsoft::ReactNative
 {
 
@@ -13,6 +19,10 @@ void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collecti
 { 
     // IReactPackageProviders from react-native-linear-gradient
     packageProviders.Append(winrt::BVLinearGradient::ReactPackageProvider());
+    // IReactPackageProviders from react-native-screens
+    packageProviders.Append(winrt::RNScreens::ReactPackageProvider());
+    // IReactPackageProviders from react-native-track-player
+    packageProviders.Append(winrt::RNTrackPlayer::ReactPackageProvider());
 }
 
 }
