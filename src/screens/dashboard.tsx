@@ -12,7 +12,7 @@ export function Dashboard() {
       <View style={styles.content}>
         <PlayListDetails />
       </View>
-      <PlayerControls />
+      {/* <PlayerControls /> */}
     </View>
   );
 }

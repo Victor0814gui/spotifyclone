@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 import { Icon } from '../assets';
 
-export function Search() {
+export function SearchSingPlaylistsItem() {
   const [onHover, setOnHover] = useState(false);
   return (
     <View

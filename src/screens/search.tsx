@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { SearchSingPlaylistsItem } from '../components/search-sing-playlists-item';
 
 export function Search() {
   const [onHover, setOnHover] = useState(false);
-  const renderItem = () => <Search />
+  const renderItem = () => <SearchSingPlaylistsItem />
 
   const keyExtractor = (_: any, index: number) => `${index}`;
 
@@ -11,7 +12,7 @@ export function Search() {
     <View style={styles.container}>
       <Text>Buscas Recentes</Text>
       <FlatList
-        data={[1, 2, 3, 5, 6, 7, 8]}
+        data={[1, 2, 3]}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         key={3}
